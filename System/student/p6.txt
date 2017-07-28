@@ -1,0 +1,26 @@
+<html>
+<body>
+<h3>Please answer all questions.</h3><br><br>
+<form action="phpinfo.php" method="post">
+<?php
+//connect to db
+$server = mysql_connect ('localhost', 'username', 'password');
+mysql_select_db("mc", $server);
+$question = mysql_query("SELECT * FROM `question` ORDER BY RAND() LIMIT 20;"); // 60 questions in my database
+$x = 0;
+while ($row = mysql_fetch_array($question))
+{   
+   echo "Question: ".$row['q_do'] . '<br />'; //q_do are my questions
+   echo '<input type="radio" name="a'.$x.'" value="a'.$row['id'].'" />' ,"A ".$row['a'] . '<br />';
+   echo '<input type="radio" name="a'.$x.'" value="b'.$row['id'].'" />' ,"B ".$row['b'] . '<br />';
+   echo '<input type="radio" name="a'.$x.'" value="c'.$row['id'].'" />' ,"C ".$row['c'] . '<br />';
+   echo '<input type="radio" name="a'.$x.'" value="d'.$row['id'].'" />' ,"D ".$row['d'] . '<br />';
+   $x++;   
+   };
+mysql_close($server);
+?>
+<input type="submit" name="Submit" value="Submit" /> //go to next page
+<br>
+</form>
+</body>
+</html>
